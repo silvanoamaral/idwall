@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount() {
     if(localStorage.getItem("auth-tokem") !== null) {
-      //this.props.history.replace('feed/feed');
+      this.props.history.replace('feed/');
     }
   }
 
@@ -21,17 +21,20 @@ class App extends Component {
     const url_signup = 'https://api-iddog.idwall.co/signup';
     fetch(url_signup, {
       method: 'post',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'email': this.login.value
-      })
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email: this.login.value })
     })
     .then(response => response.json())
     .then(result => {
-      const decoded = jwt_decode(result.user.token);
-      console.log('this.props.location',this);
-      localStorage.setItem('auth-tokem',decoded);
-      this.props.history.replace('feed/feed');
+      console.log('result',result);
+      const token = result.user.token;
+      console.log('token',token);
+      const decoded = jwt_decode(token);
+      console.log('decoded',decoded.sub);
+      localStorage.setItem('auth-tokem',token);
+      this.props.history.replace('feed/');
     })
     .catch(error => {
       console.log('Failed POST signup user',error.message);

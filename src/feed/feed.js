@@ -12,9 +12,10 @@ export default class feed extends Component {
 
     componentDidMount() {
         if(localStorage.getItem('auth-tokem') === null) {
-           // this.props.historry.replace('/App');
+           this.props.history.replace('/');
         } else {
             const token = localStorage.getItem('auth-tokem');
+            console.log('token',token); 
 
             const url = 'https://api-iddog.idwall.co/feed';
 
@@ -27,7 +28,7 @@ export default class feed extends Component {
             })
             .then(response => response.json()) // retorna uma promise
             .then(result => {
-                console.log(result);
+                console.log('result feed',result);
                 /*
                 const dogJSON = result.data;
                 let listDog = dogJSON.results.map((obj) => {
@@ -49,9 +50,11 @@ export default class feed extends Component {
     }
 
     render() {
+        const { dogs } = this.state; 
+
         return (
             <div className="content">
-                <h2>Página de Feed</h2>
+                <h2></h2>
                 <ul className="list-dog">
                     {!this.state.dogs
                         ? <Loading />
