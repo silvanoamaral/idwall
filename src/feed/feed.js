@@ -15,7 +15,6 @@ export default class feed extends Component {
            this.props.history.replace('/');
         } else {
             const token = localStorage.getItem('auth-tokem');
-            console.log('token',token); 
 
             const url = 'https://api-iddog.idwall.co/feed';
 
@@ -29,19 +28,17 @@ export default class feed extends Component {
             .then(response => response.json()) // retorna uma promise
             .then(result => {
                 console.log('result feed',result);
-                /*
-                const dogJSON = result.data;
-                let listDog = dogJSON.results.map((obj) => {
+                const dogJSON = result.list;
+                let listDog = dogJSON.map((obj) => {
                     return(
-                        <li key={obj.id}>
-                            <img src={obj.thumbnail.path+".jpg"} />
-                            <label>{obj.name}</label>                                  
+                        <li key={ obj }>
+                            <img src={ obj } />                   
                         </li>                
                     )
                 });
 
                 this.setState({ dogs: listDog });
-                */
+               
             })
             .catch(error => {
                 console.error('Failed retrieving information', error);
