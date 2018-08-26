@@ -1,0 +1,91 @@
+* {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.content {
+  width: 980px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.content h1 {
+  text-align: center;
+  text-transform: uppercase;
+  padding: 40px 0;
+}
+
+.content h1 span {
+  font-weight: 100;
+}
+
+.navBar {
+  text-align: center;
+}
+
+.navBar ul li {
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.navBar ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #949494;
+}
+
+.navBar ul li a.is-active {
+  color:#000 ;
+  font-weight:bold;
+}
+
+ul.list-dog {
+  width: 1000px;
+  overflow: hidden;
+}
+
+ul.list-dog li {
+  min-height: 300px;
+  max-height: 300px;
+  max-width: 313px;
+  float: left;
+  margin: 0 20px 20px 0;
+  overflow: hidden;
+}
+
+ul.list-dog li img {
+  height: auto;
+  min-height: 300px;
+  min-width: 315px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -55,7 +55,7 @@ Loading.propTypes = {
 };
   
 Loading.defaultProps = {
-    text: '',
+    text: 'Loading',
     speed: 300
 };
 

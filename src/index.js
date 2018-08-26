@@ -1,20 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 
-import './index.css';
-import App from './App';
-import feed from './feed/feed';
+import App from './App'
 
-import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render (
+import registerServiceWorker from './registerServiceWorker'
+
+ReactDOM.render (    
     <BrowserRouter>
-        <Switch>
-            <Route path="/" exact={true} component={App} />
-            <Route path="/feed" component={feed} />
-        </Switch>
-    </ BrowserRouter>
+        <App />
+    </BrowserRouter>
     ,document.getElementById('root')
 );
 registerServiceWorker();
