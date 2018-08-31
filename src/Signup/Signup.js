@@ -10,7 +10,7 @@ class App extends Component {
 
     componentDidMount() {
         if(localStorage.getItem("auth-tokem") !== null) {
-            this.props.history.replace('feed/');
+            this.props.history.replace('feed/husky');
         }
     }
 
@@ -40,7 +40,7 @@ class App extends Component {
             const decoded = jwt_decode(token);
             console.log('decoded',decoded.sub);
             localStorage.setItem('auth-tokem',token);
-            this.props.history.replace('feed/');
+            this.props.history.replace('feed/husky');
         })
         .catch(error => {
             this.setState({ msg:'Usuário Inválido' });

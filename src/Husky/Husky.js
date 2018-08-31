@@ -1,17 +1,50 @@
 import React, { Component } from 'react'
-import { Switch, Route, browserHistory } from 'react-router-dom'
+import { Switch, Route, browserHistory, Link} from 'react-router-dom'
+import Modal from 'react-modal'
 
 import Loading from '../components/Loading/Loading'
 import Title from '../components/Title/Title'
-import Navigation from '../Navigation/Navigation'
+import Navigation from '../main/Navigation/Navigation'
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+};
+
+Modal.setAppElement('#root')
 
 export default class feed extends Component {
     constructor() {
         super();
         this.state = {
             msg: '',
-            dogs: null
+            dogs: null,
+            modalIsOpen: false,
+            imagem: ''
         }
+
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    openModal(event) {
+        this.setState({ imagem: event.target.src });
+        this.setState({ modalIsOpen: true });        
+    }
+    
+    afterOpenModal() {
+        // references are now sync'd and can be accessed.
+    }
+    
+    closeModal() {
+        this.setState({modalIsOpen: false});
     }
 
     componentDidMount() {
@@ -41,11 +74,11 @@ export default class feed extends Component {
             })
             .then(result => {
                 const dogJSON = result.list;
-                let listDog = dogJSON.map((obj) => {
+                let listDog = dogJSON.map((obj, id) => {
                     return(
-                        <li key={ obj }>
-                            <img src={ obj } />                   
-                        </li>                
+                        <li key={ id }>
+                            <img src={ obj } onClick={this.openModal.bind(this)} />                                             
+                        </li>  
                     )
                 });
 
@@ -60,7 +93,7 @@ export default class feed extends Component {
 
     render() {
         const { dogs } = this.state;
-        
+
         return (
             <div className="content">
                 <Navigation />
@@ -70,6 +103,17 @@ export default class feed extends Component {
                         ? <Loading />
                         : dogs }
                 </ul>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                    >
+
+                    <button onClick={this.closeModal} className="btn-fechar"></button>
+                       <img src={ this.state.imagem } /> 
+                </Modal>
             </div>
         )
     }

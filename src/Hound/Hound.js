@@ -1,17 +1,60 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Modal from 'react-modal'
 
 import Loading from '../components/Loading/Loading'
-import Navigation from '../Navigation/Navigation'
 import Title from '../components/Title/Title'
+import Navigation from '../main/Navigation/Navigation'
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+};
+
+Modal.setAppElement('#root')
 
 export default class Hound extends Component {
     constructor() {
         super();
         this.state = {
             msg: '',
-            dogs: null
+            dogs: null,
+            modalIsOpen: false,
+            imagem: ''
         }
+
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    getIDImagen(src) {
+        var imagen = src;
+        src = src.split('n').pop();
+        var id =  src.split('_')[0];
+        window.history.pushState(null, null, `/feed?category=ss&id=${ id } `);
+    }
+
+    openModal(event) {
+        this.setState({ imagem: event.target.src });
+        this.setState({ modalIsOpen: true });
+        this.getIDImagen(event.target.src);
+    }
+    
+    afterOpenModal() {
+        // references are now sync'd and can be accessed.
+    }
+    
+    closeModal() {
+        this.setState({modalIsOpen: false});
+        console.log();
+        window.history.pushState(null, null, this.props.match.path);
     }
 
     componentDidMount() {
@@ -44,7 +87,7 @@ export default class Hound extends Component {
                 let listDog = dogJSON.map((obj) => {
                     return(
                         <li key={ obj }>
-                            <img src={ obj } />          
+                            <img src={ obj } onClick={this.openModal.bind(this)} />         
                         </li>                
                     )
                 });
@@ -71,6 +114,17 @@ export default class Hound extends Component {
                         ? <Loading />
                         : dogs }
                 </ul>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                    >
+
+                    <button onClick={this.closeModal} className="btn-fechar"></button>
+                       <img src={ this.state.imagem } /> 
+                </Modal>
             </div>
         )
     }
