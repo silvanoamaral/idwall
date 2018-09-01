@@ -1,6 +1,6 @@
 ## GitHub Pages
 
-Go [here](https://silvanoamaral.github.io/idwall/) live demo.
+Go [here](https://iddog.herokuapp.com/) live demo.
 
 ## Instalação do projeto
 
