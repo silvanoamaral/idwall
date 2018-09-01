@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Switch, Route, browserHistory, Link} from 'react-router-dom'
 import Modal from 'react-modal'
 
 import Loading from '../components/Loading/Loading'
@@ -34,9 +33,18 @@ export default class feed extends Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
+    getIDImagen(img) {
+        var src = img.split('n').pop();
+        var id =  src.split('_')[0];
+        var categoria = this.props.location.pathname;
+        categoria = categoria.split('/').pop();
+        window.history.pushState(null, null, `/feed?category=${ categoria }&id=${ id } `);
+    }
+
     openModal(event) {
         this.setState({ imagem: event.target.src });
-        this.setState({ modalIsOpen: true });        
+        this.setState({ modalIsOpen: true });
+        this.getIDImagen(event.target.src);        
     }
     
     afterOpenModal() {
@@ -45,6 +53,7 @@ export default class feed extends Component {
     
     closeModal() {
         this.setState({modalIsOpen: false});
+        window.history.pushState(null, null, this.props.match.path);
     }
 
     componentDidMount() {

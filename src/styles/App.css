@@ -107,7 +107,23 @@ button.btn-fechar:after {
   left: 0px;
   top: -1px;
 }
-
+.grid-login {
+  margin-top: 50px;
+}
+.login-box {
+  margin-top: 50px;
+}
+.login-box input[type=text] {
+  padding: 5px;
+  border: 1px solid #000;
+  margin-right: 20px;
+}
+.login-box input[type="submit"] {
+  padding: 5px 20px;
+  border: 1px solid;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -1,7 +1,6 @@
 import React from 'react'
-import { NavLink, Route, Link } from 'react-router-dom'
 
-const Navigation = ({  }) => {
+const Navigation = ({ match  }) => {
     return (
       <div>
         Page Not Found

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import Modal from 'react-modal'
 
 import Loading from '../components/Loading/Loading'
@@ -34,11 +33,12 @@ export default class Hound extends Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    getIDImagen(src) {
-        var imagen = src;
-        src = src.split('n').pop();
+    getIDImagen(img) {
+        var src = img.split('n').pop();
         var id =  src.split('_')[0];
-        window.history.pushState(null, null, `/feed?category=ss&id=${ id } `);
+        var categoria = this.props.location.pathname;
+        categoria = categoria.split('/').pop();
+        window.history.pushState(null, null, `/feed?category=${ categoria }&id=${ id } `);
     }
 
     openModal(event) {
@@ -53,7 +53,6 @@ export default class Hound extends Component {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        console.log();
         window.history.pushState(null, null, this.props.match.path);
     }
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import jwt_decode from 'jwt-decode';
+
+import Title from '../components/Title/Title'
 
 class App extends Component {
     constructor(props) {
         super(props)
-        console.log(this.props);
         this.state = { msg: '' }
     }
 
@@ -33,12 +33,8 @@ class App extends Component {
                 throw new Error('Não foi possível fazer o login.');
             }
         })
-        .then(result => {
-            console.log('result',result);
+        .then(result => {            
             const token = result.user.token;
-            console.log('token',token);
-            const decoded = jwt_decode(token);
-            console.log('decoded',decoded.sub);
             localStorage.setItem('auth-tokem',token);
             this.props.history.replace('feed/husky');
         })
@@ -62,13 +58,14 @@ class App extends Component {
     return (
       <div className="App">        
         <div className="grid-login">
-          <div className="login-box">
-            <span>{ this.state.msg }</span>
-            <form onSubmit={ this.signup.bind(this) } >
-              <input type="text" ref={ (input) => this.login = input } />
-              <input type="submit" value="login"/>
-            </form>
-          </div>
+            <Title />
+            <div className="login-box">
+                <span>{ this.state.msg }</span>
+                <form onSubmit={ this.signup.bind(this) } >
+                    <input type="text" ref={ (input) => this.login = input } />
+                    <input type="submit" value="login"/>
+                </form>
+            </div>
         </div>
       </div>
     );

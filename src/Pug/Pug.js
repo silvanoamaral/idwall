@@ -33,9 +33,18 @@ export default class Pud extends Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
+    getIDImagen(img) {
+        var src = img.split('n').pop();
+        var id =  src.split('_')[0];
+        var categoria = this.props.location.pathname;
+        categoria = categoria.split('/').pop();
+        window.history.pushState(null, null, `/feed?category=${ categoria }&id=${ id } `);
+    }
+
     openModal(event) {
         this.setState({ imagem: event.target.src });
-        this.setState({ modalIsOpen: true });        
+        this.setState({ modalIsOpen: true });
+        this.getIDImagen(event.target.src);       
     }
     
     afterOpenModal() {
@@ -44,6 +53,7 @@ export default class Pud extends Component {
     
     closeModal() {
         this.setState({modalIsOpen: false});
+        window.history.pushState(null, null, this.props.match.path);
     }
 
     componentDidMount() {
